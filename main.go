@@ -23,10 +23,19 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
+	// newuserRepository, err := userRepository.FindByEmail("tikoh@gmail.com")
+
+	// if newuserRepository.ID == 0 {
+	// 	fmt.Println("User Tidak di temukan")
+	// 	return
+	// }
+	// fmt.Println(newuserRepository.Name)
+
 	userHandler := handler.NewUserHandler(userService)
 	router := gin.Default()
 	api := router.Group("/api/v1")
 	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/sessions", userHandler.Login)
 	router.Run()
 	// userInput := user.RegisterUserInput{}
 	// userInput.Name = "Test Simpang dari Service"
