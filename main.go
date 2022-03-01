@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"funding/auth"
 	"funding/handler"
 	"funding/user"
@@ -26,6 +27,21 @@ func main() {
 	authService := auth.NewService()
 	userHandler := handler.NewUserHandler(userService, authService)
 
+	gettoken, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNX0.NpfzTHrxuYHhBVIQDdyDgL1wm_IFm8ibq4xqIK9jG9M")
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+	}
+	if gettoken.Valid {
+		fmt.Println("valid")
+		fmt.Println("valid")
+		fmt.Println("valid")
+	} else {
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+		fmt.Println("ERROR")
+	}
 	router := gin.Default()
 	api := router.Group("/api/v1")
 	api.POST("/users", userHandler.RegisterUser)
